@@ -96,7 +96,7 @@ ALTER ROLE db_owner ADD MEMBER [TaskAdminUser];
 Go
 
 
-select * from user_to_event
+select * from users
 
 insert into users values('idk','2042007o',NULL,'ofek','levy','0587333645','1','aviv','hod hasron','1','cool')
 
