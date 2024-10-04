@@ -1,14 +1,13 @@
 ﻿
 using sportup.Models;
 using sportup.DTO;
-using sportup.ModelsExt;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
 using Humanizer;
 
 
-namespace LoginDemoServer.Controllers
+namespace sportup.Controllers
 {
     [Route("api")]
     [ApiController]
@@ -37,7 +36,7 @@ namespace LoginDemoServer.Controllers
 
                 //Get model user class from DB with matching email. 
 
-                Models.User modelsUser = context.GetUSerFromDB(loginDto.Email);
+                Models.User modelsUser = context.GetUSerFromDB(loginDto.UserId);
 
                 //Check if user exist for this email and if password match, if not return Access Denied (Error 403) 
                 if (modelsUser == null || modelsUser.Password != loginDto.Password)
@@ -46,7 +45,7 @@ namespace LoginDemoServer.Controllers
                 }
 
                 //Login suceed! now mark login in session memory!
-                HttpContext.Session.SetString("loggedInUser", modelsUser.Email);
+                HttpContext.Session.SetString("loggedInUser", $"{modelsUser.UserId}");
 
                 return Ok(new DTO.UserDTO(modelsUser));
             }
@@ -66,18 +65,18 @@ namespace LoginDemoServer.Controllers
             try
             {
                 //Check if user is logged in 
-                string userEmail = HttpContext.Session.GetString("loggedInUser");
+                string userId = HttpContext.Session.GetString("loggedInUser");
 
-                if (string.IsNullOrEmpty(userEmail))
+                if (string.IsNullOrEmpty(userId))
                 {
                     return Unauthorized("User is not logged in");
                 }
 
 
                 //user is logged in - lets check who is the user
-                Models.User modelsUser = context.GetUSerFromDB(userEmail);
+                Models.User modelsUser = context.GetUSerFromDB(int.Parse(userId));
 
-                return Ok(new DTO.User(modelsUser));
+                return Ok(new DTO.UserDTO(modelsUser));
             }
             catch (Exception ex)
             {

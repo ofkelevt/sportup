@@ -16,7 +16,7 @@ namespace sportup.Models
         public int EventId { get; set; }
 
         [Key, Column (Order = 2)]
-        public int TableId { get; set; }
+        public int UserToEventId { get; set; }
         // Navigation Properties
         public User User { get; set; }
         public Event Event { get; set; }

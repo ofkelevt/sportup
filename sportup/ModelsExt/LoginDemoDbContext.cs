@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace LoginDemoServer.Models;
-
-public partial class LoginDemoDbContext : DbContext
+namespace sportup.Models
 {
-    public Models.Users GetUSerFromDB(string email)
-    {
-        Models.Users user = this.Users.Where(u => u.Email == email).FirstOrDefault();
-        return user;
-    }
-}
 
+    public partial class LoginDemoDbContext : DbContext
+    {
+        public Models.User GetUSerFromDB(int UserId)
+        {
+            Models.User user = this.Users.Where(u => u.UserId == UserId).FirstOrDefault();
+            return user;
+        }
+    }
+
+}

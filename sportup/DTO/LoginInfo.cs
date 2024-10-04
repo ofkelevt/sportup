@@ -1,8 +1,8 @@
-﻿namespace LoginDemoServer.DTO
+﻿namespace sportup.DTO
 {
     public class LoginInfo
     {
-        public string Email { get; set; }
+        public int UserId { get; set; }
         public string Password { get; set; }
     }
 }

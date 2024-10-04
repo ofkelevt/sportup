@@ -1,27 +1,54 @@
-﻿using LoginDemoServer.Models;
-namespace LoginDemoServer.DTO
+﻿using sportup.Models;
+using System.ComponentModel.DataAnnotations;
+namespace sportup.DTO
 {
     public class UserDTO
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string? PhoneNumber { get; set; }
-        public DateTime? BirthDate { get; set; }
-        public string Name { get; set; }
+        public int UserId { get; set; }
 
-        public Models.Users ToModelsUser()
+        public string Username { get; set; }
+
+        public string Password { get; set; }
+
+        public string PictureUrl { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string PhoneNum { get; set; }
+
+        public string HomeNum { get; set; }
+
+        public string StreetName { get; set; }
+
+        public string CityName { get; set; }
+
+        public int? URank { get; set; }
+
+        public string Description { get; set; }
+
+        public Models.User ToModelsUser()
         {
-            return new Models.Users() { Email = Email, Password = Password, PhoneNumber = PhoneNumber, BirthDate = BirthDate, Name = Name };
+            return new Models.User() { UserId = UserId,Username = Username, Password = Password,PictureUrl = PictureUrl,FirstName = FirstName,
+                LastName = LastName, PhoneNum = PhoneNum,HomeNum = HomeNum, StreetName = StreetName, CityName = CityName, URank = URank, Description = Description};
         }
 
         public UserDTO() { }
-        public UserDTO(Models.Users modelUser)
+        public UserDTO(Models.User modelUser)
         {
-            this.PhoneNumber = modelUser.PhoneNumber;
-            this.Name = modelUser.Name;
-            this.Email = modelUser.Email;
+            this.UserId = modelUser.UserId;
+            this.Username = modelUser.Username;
             this.Password = modelUser.Password;
-            this.BirthDate = modelUser.BirthDate;
+            this.PictureUrl = modelUser.PictureUrl;
+            this.FirstName = modelUser.FirstName;
+            this.LastName = modelUser.LastName;
+            this.PhoneNum = modelUser.PhoneNum;
+            this.HomeNum = modelUser.HomeNum;
+            this.StreetName = modelUser.StreetName;
+            this.CityName = modelUser.CityName;
+            this.URank = modelUser.URank;
+            this.Description = modelUser.Description;
         }
     }
 }
