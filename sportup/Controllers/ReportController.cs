@@ -10,46 +10,46 @@ namespace sportup.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class ReportsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public UsersController(ApplicationDbContext context)
+        public ReportsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: api/Reports
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Report>>> GetReports()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Reports.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/Reports/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Report>> GetReport(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var report = await _context.Reports.FindAsync(id);
 
-            if (user == null)
+            if (report == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return report;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Reports/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutReport(int id, Report report)
         {
-            if (id != user.UserId)
+            if (id != report.ReporterId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(report).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace sportup.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!ReportExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,35 @@ namespace sportup.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/Reports
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Report>> PostReport(Report report)
         {
-            _context.Users.Add(user);
+            _context.Reports.Add(report);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetReport", new { id = report.ReporterId }, report);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/Reports/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteReport(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var report = await _context.Reports.FindAsync(id);
+            if (report == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Reports.Remove(report);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool ReportExists(int id)
         {
-            return _context.Users.Any(e => e.UserId == id);
+            return _context.Reports.Any(e => e.ReporterId == id);
         }
     }
 }

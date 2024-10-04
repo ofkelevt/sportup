@@ -10,46 +10,46 @@ namespace sportup.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class EventsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public UsersController(ApplicationDbContext context)
+        public EventsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: api/Events
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Events.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/Events/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Event>> GetEvent(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var eventItem = await _context.Events.FindAsync(id);
 
-            if (user == null)
+            if (eventItem == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return eventItem;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Events/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutEvent(int id, Event eventItem)
         {
-            if (id != user.UserId)
+            if (id != eventItem.EventId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(eventItem).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace sportup.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!EventExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,35 @@ namespace sportup.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/Events
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Event>> PostEvent(Event eventItem)
         {
-            _context.Users.Add(user);
+            _context.Events.Add(eventItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetEvent", new { id = eventItem.EventId }, eventItem);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/Events/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteEvent(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var eventItem = await _context.Events.FindAsync(id);
+            if (eventItem == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Events.Remove(eventItem);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool EventExists(int id)
         {
-            return _context.Users.Any(e => e.UserId == id);
+            return _context.Events.Any(e => e.EventId == id);
         }
     }
 }
