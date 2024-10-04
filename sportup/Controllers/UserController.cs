@@ -1,8 +1,11 @@
-﻿using LoginDemoServer.Models;
-using LoginDemoServer.DTO;
+﻿
+using sportup.Models;
+using sportup.DTO;
+using sportup.ModelsExt;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
+using Humanizer;
 
 
 namespace LoginDemoServer.Controllers
@@ -12,7 +15,7 @@ namespace LoginDemoServer.Controllers
     public class LoginController : ControllerBase
     {
         //a variable to hold a reference to the db context!
-       
+
         private LoginDemoDbContext context;
 
         //Use dependency injection to get the db context intot he constructor
@@ -33,11 +36,11 @@ namespace LoginDemoServer.Controllers
                 HttpContext.Session.Clear(); //Logout any previous login attempt
 
                 //Get model user class from DB with matching email. 
-             
-                Models.Users modelsUser = context.GetUSerFromDB(loginDto.Email);
-                
+
+                Models.User modelsUser = context.GetUSerFromDB(loginDto.Email);
+
                 //Check if user exist for this email and if password match, if not return Access Denied (Error 403) 
-                if (modelsUser == null || modelsUser.Password != loginDto.Password) 
+                if (modelsUser == null || modelsUser.Password != loginDto.Password)
                 {
                     return Unauthorized("user or password not valid/user not exists");
                 }
@@ -54,7 +57,7 @@ namespace LoginDemoServer.Controllers
 
         }
 
-        
+
 
         // Get api/check
         [HttpGet("check")]
@@ -72,9 +75,9 @@ namespace LoginDemoServer.Controllers
 
 
                 //user is logged in - lets check who is the user
-                Models.Users modelsUser = context.GetUSerFromDB(userEmail);
-             
-                return Ok(new DTO.Users(modelsUser));
+                Models.User modelsUser = context.GetUSerFromDB(userEmail);
+
+                return Ok(new DTO.User(modelsUser));
             }
             catch (Exception ex)
             {

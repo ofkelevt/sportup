@@ -9,12 +9,14 @@ namespace sportup.Models
 {
     public class UserToEvent
     {
-        [Key, Column(Order = 0)]
+        [Column(Order = 0)]
         public int UserId { get; set; }
 
-        [Key, Column(Order = 1)]
+        [Column(Order = 1)]
         public int EventId { get; set; }
 
+        [Key, Column (Order = 2)]
+        public int TableId { get; set; }
         // Navigation Properties
         public User User { get; set; }
         public Event Event { get; set; }

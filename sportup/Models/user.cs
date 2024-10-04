@@ -47,11 +47,14 @@ namespace sportup.Models
         public string Description { get; set; }
 
         // Navigation Properties
-        public ICollection<UserToEvent> UserToEvents { get; set; }
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<ChatComment> ChatComments { get; set; }
-        public ICollection<Report> ReportsMade { get; set; }
-        public ICollection<Report> ReportsReceived { get; set; }
+        public ICollection<UserToEvent> UserToEvents { get; set; } = new List<UserToEvent>();
+
+        // Renamed for clarity
+        public ICollection<Comment> CommentsReceived { get; set; } = new List<Comment>();
+        public ICollection<Comment> CommentsMade { get; set; } = new List<Comment>();
+
+        public ICollection<ChatComment> ChatComments { get; set; } = new List<ChatComment>();
+        public ICollection<Report> ReportsMade { get; set; } = new List<Report>();
+        public ICollection<Report> ReportsReceived { get; set; } = new List<Report>();
     }
 }
-

@@ -40,7 +40,7 @@ GO
 CREATE TABLE user_to_event (
     user_id INT,
     event_id INT,
-    PRIMARY KEY (user_id, event_id),
+    table_id INT PRIMARY KEY,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
 );
