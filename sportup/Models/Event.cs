@@ -36,6 +36,7 @@ namespace sportup.Models
         public string EventName { get; set; }
         [Required]
         public string Crator_Id { get; set; }
+        public string Description { get; set; }
 
         // Navigation Properties
         public ICollection<UserToEvent> UserToEvents { get; set; }

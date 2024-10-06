@@ -17,6 +17,7 @@ CREATE TABLE users (
     home_num VARCHAR(10),
     street_name VARCHAR(100),
     city_name VARCHAR(50),
+    description VARCHAR(max),
 	urank INT,
     description TEXT,
 );
@@ -31,6 +32,7 @@ CREATE TABLE event (
     picture_url VARCHAR(255),
     sport VARCHAR(50) NOT NULL,
     created_at DATETIME DEFAULT GETDATE(),
+    description VARCHAR(max),
     ends_at DATETIME, 
     event_name VARCHAR(100) NOT NULL,
     crator_id INT NOT NULL,

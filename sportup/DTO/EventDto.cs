@@ -17,6 +17,7 @@ namespace sportup.DTO
         public string Sport { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public string Description { get; set; }
 
         public DateTime EndsAt { get; set; }
 
@@ -36,7 +37,8 @@ namespace sportup.DTO
                 CreatedAt = dto.CreatedAt,
                 EndsAt = dto.EndsAt,
                 EventName = dto.EventName,
-                Crator_Id = dto.Crator_Id
+                Crator_Id = dto.Crator_Id,
+                Description = dto.Description
             };
         }
         // Empty builder
@@ -55,6 +57,7 @@ namespace sportup.DTO
             EndsAt = (System.DateTime)events.EndsAt;
             EventName = events.EventName;
             Crator_Id = events.Crator_Id;
+            Description = events.Description;
         }
     }
 }
