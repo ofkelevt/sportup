@@ -33,6 +33,8 @@ CREATE TABLE event (
     created_at DATETIME DEFAULT GETDATE(),
     ends_at DATETIME, 
     event_name VARCHAR(100) NOT NULL,
+    crator_id INT NOT NULL,
+    FOREIGN KEY (crator_id) REFERENCES users(user_id) ON DELETE CASCADE,
 );
 GO
 
@@ -41,6 +43,7 @@ CREATE TABLE user_to_event (
     user_id INT,
     event_id INT,
     table_id INT PRIMARY KEY,
+    realtionship_type VARCHAR(8),
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
 );
