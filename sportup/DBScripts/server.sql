@@ -17,7 +17,6 @@ CREATE TABLE users (
     home_num VARCHAR(10),
     street_name VARCHAR(100),
     city_name VARCHAR(50),
-    description VARCHAR(max),
 	urank INT,
     description TEXT,
 );
@@ -46,8 +45,8 @@ CREATE TABLE user_to_event (
     user_id INT,
     event_id INT,
     realtionship_type VARCHAR(8),
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ,
+    FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE,
 );
 GO
 
@@ -101,11 +100,15 @@ ALTER ROLE db_owner ADD MEMBER [TaskAdminUser];
 Go
 
 
-select * from user_to_event
+select * from report
 
-insert into users values('idk','2042007o',NULL,'ofek','levy','0587333645','1','aviv','hod hasron',1,'cool')
-insert into event values(null,null,null,null,'tenis',null,null,'hi','1')
-insert into user_to_event values('1','3','none')
+insert into users values('idk','2042007o',NULL,'ofek','levy','0587333645','1','aviv','hod hasron',1,'cool');
+insert into users values('idk1','2042007o1',NULL,'ofek','levy','05873336451','2','aviv1','hod hasron1',2,'cool1');
+insert into event values(null,null,null,null,'tenis',null,null,null,'hi','1');
+insert into user_to_event values('1','1','none');
+insert into comment values('1','2','cool man',null,'5');
+insert into chat_comment values('1','1','cool mate',null);
+insert into report values('1','1','yo',null);
 --EF Code
 /*
 scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=sport_server;User ID=TaskAdminLogin;Password=kukuPassword;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context sportupDBContext -DataAnnotations -force
