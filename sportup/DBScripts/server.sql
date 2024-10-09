@@ -42,9 +42,9 @@ GO
 
 -- Create the user_to_event junction table (many-to-many relationship)
 CREATE TABLE user_to_event (
+    table_id INT IDENTITY(1,1) PRIMARY KEY,
     user_id INT,
     event_id INT,
-    table_id INT PRIMARY KEY,
     realtionship_type VARCHAR(8),
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
@@ -101,10 +101,11 @@ ALTER ROLE db_owner ADD MEMBER [TaskAdminUser];
 Go
 
 
-select * from users
+select * from user_to_event
 
-insert into users values('idk','2042007o',NULL,'ofek','levy','0587333645','1','aviv','hod hasron','1','cool')
-
+insert into users values('idk','2042007o',NULL,'ofek','levy','0587333645','1','aviv','hod hasron',1,'cool')
+insert into event values(null,null,null,null,'tenis',null,null,'hi','1')
+insert into user_to_event values('1','3','none')
 --EF Code
 /*
 scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=sport_server;User ID=TaskAdminLogin;Password=kukuPassword;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context sportupDBContext -DataAnnotations -force
