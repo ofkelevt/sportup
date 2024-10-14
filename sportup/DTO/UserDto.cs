@@ -31,7 +31,7 @@ namespace sportup.DTO
         public Models.User ToModelsUser()
         {
             return new Models.User() { UserId = UserId,Username = Username, Password = Password,PictureUrl = PictureUrl,FirstName = FirstName,
-                LastName = LastName, PhoneNum = PhoneNum,HomeNum = HomeNum, StreetName = StreetName, CityName = CityName, URank = URank, Description = Description};
+                LastName = LastName, PhoneNum = PhoneNum,HomeNum = HomeNum, StreetName = StreetName, CityName = CityName,Urank = URank, Description = Description};
         }
 
         public UserDTO() { }
@@ -47,7 +47,7 @@ namespace sportup.DTO
             this.HomeNum = modelUser.HomeNum;
             this.StreetName = modelUser.StreetName;
             this.CityName = modelUser.CityName;
-            this.URank = modelUser.URank;
+            this.URank = modelUser.Urank;
             this.Description = modelUser.Description;
         }
     }

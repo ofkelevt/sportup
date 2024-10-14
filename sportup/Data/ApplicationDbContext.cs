@@ -1,75 +1,82 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using sportup.Models;
-
 namespace sportup.Data
 {
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+            : base(options) { }
 
-        // DbSet properties for each table
+        // DbSets for each table
         public DbSet<User> Users { get; set; }
-        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Event> Events { get; set; }
         public DbSet<UserToEvent> UserToEvents { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<ChatComment> ChatComments { get; set; }
         public DbSet<Report> Reports { get; set; }
-        public DbSet<Event> Events { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // User 1:M UserToEvent
-            modelBuilder.Entity<UserToEvent>()
-                .HasOne(ute => ute.User)
-                .WithMany(u => u.UserToEvents)
-                .HasForeignKey(ute => ute.UserId)
-                .OnDelete(DeleteBehavior.Cascade);  // Cascade delete
+            base.OnModelCreating(modelBuilder);
 
-            // Event 1:M UserToEvent
-            modelBuilder.Entity<UserToEvent>()
-                .HasOne(ute => ute.Event)
-                .WithMany(e => e.UserToEvents)
-                .HasForeignKey(ute => ute.EventId)
-                .OnDelete(DeleteBehavior.Cascade);  // Cascade delete
+            // Configure User -> Event relationship (One-to-Many)
+            modelBuilder.Entity<Event>()
+                .HasOne(e => e.Crator)
+                .WithMany(u => u.CreatedEvents)
+                .HasForeignKey(e => e.CratorId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            // User 1:M Comment (CommenterId)
+            // Configure UserToEvent relationship (Many-to-Many)
+            modelBuilder.Entity<UserToEvent>()
+                .HasOne(ue => ue.User)
+                .WithMany(u => u.UserEvents)
+                .HasForeignKey(ue => ue.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<UserToEvent>()
+                .HasOne(ue => ue.Event)
+                .WithMany(e => e.Participants)
+                .HasForeignKey(ue => ue.EventId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Configure Comment relationships
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Commenter)
-                .WithMany(u => u.CommentsMade)   // Reference to navigation property in User
+                .WithMany(u => u.Comments)
                 .HasForeignKey(c => c.CommenterId)
-                .OnDelete(DeleteBehavior.Restrict);  // Prevent cascade delete
+                .OnDelete(DeleteBehavior.NoAction);
 
-            // User 1:M Comment (CommentedOnId)
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.CommentedOn)
-                .WithMany(u => u.CommentsReceived)   // Reference to navigation property in User
+                .WithMany()
                 .HasForeignKey(c => c.CommentedOnId)
-                .OnDelete(DeleteBehavior.Restrict);  // Prevent cascade delete
+                .OnDelete(DeleteBehavior.NoAction);
 
-            // User 1:M ChatComment
+            // Configure ChatComment relationships
             modelBuilder.Entity<ChatComment>()
                 .HasOne(cc => cc.Commenter)
                 .WithMany(u => u.ChatComments)
                 .HasForeignKey(cc => cc.CommenterId)
-                .OnDelete(DeleteBehavior.Cascade);  // Cascade delete
+                .OnDelete(DeleteBehavior.NoAction);
 
-            // User 1:M Report (ReportsMade)
+            modelBuilder.Entity<ChatComment>()
+                .HasOne(cc => cc.Event)
+                .WithMany(e => e.ChatComments)
+                .HasForeignKey(cc => cc.EventId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Configure Report relationships
             modelBuilder.Entity<Report>()
                 .HasOne(r => r.Reporter)
-                .WithMany(u => u.ReportsMade)
+                .WithMany(u => u.Reports)
                 .HasForeignKey(r => r.ReporterId)
-                .OnDelete(DeleteBehavior.Restrict);  // Prevent cascade delete
+                .OnDelete(DeleteBehavior.NoAction);
 
-            // User 1:M Report (ReportsReceived)
             modelBuilder.Entity<Report>()
                 .HasOne(r => r.Target)
-                .WithMany(u => u.ReportsReceived)
+                .WithMany()
                 .HasForeignKey(r => r.TargetId)
-                .OnDelete(DeleteBehavior.Restrict);  // Prevent cascade delete
-
-            base.OnModelCreating(modelBuilder); // Always call this to ensure base behavior
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

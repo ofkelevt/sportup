@@ -6,13 +6,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace sportup.Models
 {
+
     public class Comment
     {
         [Key]
         public int CommentId { get; set; }
 
+        [Required]
         public int CommenterId { get; set; }
 
+        [Required]
         public int CommentedOnId { get; set; }
 
         public string CommentText { get; set; }
@@ -23,10 +26,8 @@ namespace sportup.Models
         public int Rating { get; set; }
 
         // Navigation Properties
-        [ForeignKey("CommenterId")]
         public User Commenter { get; set; }
-
-        [ForeignKey("CommentedOnId")]
         public User CommentedOn { get; set; }
     }
+
 }

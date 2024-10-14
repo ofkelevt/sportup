@@ -17,7 +17,6 @@ CREATE TABLE users (
     home_num VARCHAR(10),
     street_name VARCHAR(100),
     city_name VARCHAR(50),
-    description VARCHAR(max),
 	urank INT,
     description TEXT,
 );
@@ -36,7 +35,7 @@ CREATE TABLE event (
     ends_at DATETIME, 
     event_name VARCHAR(100) NOT NULL,
     crator_id INT NOT NULL,
-    FOREIGN KEY (crator_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (crator_id) REFERENCES users(user_id) ON DELETE NO ACTION,
 );
 GO
 
@@ -46,8 +45,8 @@ CREATE TABLE user_to_event (
     user_id INT,
     event_id INT,
     realtionship_type VARCHAR(8),
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE NO ACTION,
+    FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE NO ACTION
 );
 GO
 
@@ -99,6 +98,7 @@ Go
 -- Add the user to the db_owner role to grant admin privileges
 ALTER ROLE db_owner ADD MEMBER [TaskAdminUser];
 Go
+
 
 
 select * from user_to_event

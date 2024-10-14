@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace sportup.Models
 {
@@ -11,23 +12,19 @@ namespace sportup.Models
         [Key]
         public int UserId { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        [Required, MaxLength(50)]
         public string Username { get; set; }
 
-        [Required]
-        [MaxLength(100)]
+        [Required, MaxLength(100)]
         public string Password { get; set; }
 
         [MaxLength(255)]
         public string PictureUrl { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        [Required, MaxLength(50)]
         public string FirstName { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        [Required, MaxLength(50)]
         public string LastName { get; set; }
 
         [MaxLength(15)]
@@ -42,19 +39,16 @@ namespace sportup.Models
         [MaxLength(50)]
         public string CityName { get; set; }
 
-        public int? URank { get; set; }
+        public int? Urank { get; set; }
 
         public string Description { get; set; }
 
         // Navigation Properties
-        public ICollection<UserToEvent> UserToEvents { get; set; } = new List<UserToEvent>();
-
-        // Renamed for clarity
-        public ICollection<Comment> CommentsReceived { get; set; } = new List<Comment>();
-        public ICollection<Comment> CommentsMade { get; set; } = new List<Comment>();
-
-        public ICollection<ChatComment> ChatComments { get; set; } = new List<ChatComment>();
-        public ICollection<Report> ReportsMade { get; set; } = new List<Report>();
-        public ICollection<Report> ReportsReceived { get; set; } = new List<Report>();
+        public ICollection<Event> CreatedEvents { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<ChatComment> ChatComments { get; set; }
+        public ICollection<Report> Reports { get; set; }
+        public ICollection<UserToEvent> UserEvents { get; set; }
     }
+
 }

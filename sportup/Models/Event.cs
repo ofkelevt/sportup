@@ -12,35 +12,40 @@ namespace sportup.Models
         public int EventId { get; set; }
 
         [MaxLength(10)]
-        public string HomeNum { get; set; }
+        public string? HomeNum { get; set; }
 
         [MaxLength(100)]
-        public string StreetName { get; set; }
+        public string? StreetName { get; set; }
 
         [MaxLength(50)]
-        public string CityName { get; set; }
+        public string? CityName { get; set; }
 
         [MaxLength(255)]
-        public string PictureUrl { get; set; }
+        public string? PictureUrl { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        [Required, MaxLength(50)]
         public string Sport { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        public DateTime? EndsAt { get; set; }
-
-        [Required]
-        [MaxLength(100)]
-        public string EventName { get; set; }
-        [Required]
-        public string Crator_Id { get; set; }
         public string Description { get; set; }
 
+        public DateTime? EndsAt { get; set; }
+
+        [Required, MaxLength(100)]
+        public string EventName { get; set; }
+
+        [Required]
+        public int CratorId { get; set; }
+
         // Navigation Properties
-        public ICollection<UserToEvent> UserToEvents { get; set; }
+        [Required]
+        public User Crator { get; set; }
+        [Required]
+        public ICollection<UserToEvent> Participants { get; set; }
+        [Required]
         public ICollection<ChatComment> ChatComments { get; set; }
     }
+
 
 }

@@ -6,24 +6,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace sportup.Models
 {
+    using System.ComponentModel.DataAnnotations;
+    using System;
+
     public class Report
     {
         [Key]
         public int ReportId { get; set; }
 
+        [Required]
         public int ReporterId { get; set; }
 
+        [Required]
         public int TargetId { get; set; }
 
-        public string Comment { get; set; }
+        public string? CommentText { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         // Navigation Properties
-        [ForeignKey("ReporterId")]
+        [Required]
         public User Reporter { get; set; }
-
-        [ForeignKey("TargetId")]
+        [Required]
         public User Target { get; set; }
     }
+
 }

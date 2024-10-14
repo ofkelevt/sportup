@@ -11,8 +11,10 @@ namespace sportup.Models
         [Key]
         public int CommentId { get; set; }
 
+        [Required]
         public int CommenterId { get; set; }
 
+        [Required]
         public int EventId { get; set; }
 
         public string CommentText { get; set; }
@@ -20,12 +22,8 @@ namespace sportup.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         // Navigation Properties
-        [ForeignKey("CommenterId")]
         public User Commenter { get; set; }
-
-        [ForeignKey("EventId")]
         public Event Event { get; set; }
     }
-
 
 }
