@@ -44,7 +44,7 @@ namespace sportup.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUserToEvent(int id, UserToEvent userToEvent)
         {
-            if (id != userToEvent.UserToEventId)
+            if (id != userToEvent.TableId)
             {
                 return BadRequest();
             }
@@ -77,7 +77,7 @@ namespace sportup.Controllers
             _context.UserToEvents.Add(userToEvent);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUserToEvent", new { id = userToEvent.UserToEventId }, userToEvent);
+            return CreatedAtAction("GetUserToEvent", new { id = userToEvent.TableId }, userToEvent);
         }
 
         // DELETE: api/UserToEvent/5
@@ -98,7 +98,7 @@ namespace sportup.Controllers
 
         private bool UserToEventExists(int id)
         {
-            return _context.UserToEvents.Any(e => e.UserToEventId == id);
+            return _context.UserToEvents.Any(e => e.TableId == id);
         }
     }
 }

@@ -1,29 +1,34 @@
-﻿namespace sportup.Dtos
+﻿using sportup.Models;
+
+namespace sportup.Dtos
 {
     public class UserToEventDto
     {
-        public int UserToEventId { get; set; }
+        public int TableId { get; set; }
         public int UserId { get; set; }
         public int EventId { get; set; }
+        public string? RealtionshipType { get; set; }
 
-        public Models.UserToEvent ToModelsUserToEvent(UserToEventDto dto)
-        {
-            return new Models.UserToEvent()
-            {
-                UserToEventId = dto.UserToEventId,
-                UserId = dto.UserId,
-                EventId = dto.EventId
-            };
-        }
-        // Empty builder
         public UserToEventDto() { }
 
-        // Builder that accepts a UserToEvent model
-        public UserToEventDto(Models.UserToEvent userToEvent)
+        public UserToEventDto(UserToEvent userToEvent)
         {
-            UserToEventId = userToEvent.UserToEventId;
+            TableId = userToEvent.TableId;
             UserId = userToEvent.UserId;
             EventId = userToEvent.EventId;
+            RealtionshipType = userToEvent.RealtionshipType;
+        }
+
+        public UserToEvent ToModel()
+        {
+            return new UserToEvent
+            {
+                TableId = TableId,
+                UserId = UserId,
+                EventId = EventId,
+                RealtionshipType = RealtionshipType
+            };
         }
     }
+
 }

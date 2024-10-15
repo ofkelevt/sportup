@@ -2,53 +2,60 @@
 using System.ComponentModel.DataAnnotations;
 namespace sportup.DTO
 {
-    public class UserDTO
+    public class UserDto
     {
         public int UserId { get; set; }
-
         public string Username { get; set; }
-
-        public string Password { get; set; }
-
-        public string PictureUrl { get; set; }
-
+        public string? Password { get; set; }  // Sensitive info made nullable
+        public string? PictureUrl { get; set; }
         public string FirstName { get; set; }
-
         public string LastName { get; set; }
+        public string? PhoneNum { get; set; }
+        public string? HomeNum { get; set; }
+        public string? StreetName { get; set; }
+        public string? CityName { get; set; }
+        public int? Urank { get; set; }
+        public string? Description { get; set; }
 
-        public string PhoneNum { get; set; }
+        // Empty constructor
+        public UserDto() { }
 
-        public string HomeNum { get; set; }
-
-        public string StreetName { get; set; }
-
-        public string CityName { get; set; }
-
-        public int? URank { get; set; }
-
-        public string Description { get; set; }
-
-        public Models.User ToModelsUser()
+        // Constructor that takes a Users model
+        public UserDto(User user)
         {
-            return new Models.User() { UserId = UserId,Username = Username, Password = Password,PictureUrl = PictureUrl,FirstName = FirstName,
-                LastName = LastName, PhoneNum = PhoneNum,HomeNum = HomeNum, StreetName = StreetName, CityName = CityName,Urank = URank, Description = Description};
+            UserId = user.UserId;
+            Username = user.Username;
+            Password = null;  // Hide sensitive data
+            PictureUrl = user.PictureUrl;
+            FirstName = user.FirstName;
+            LastName = user.LastName;
+            PhoneNum = user.PhoneNum;
+            HomeNum = user.HomeNum;
+            StreetName = user.StreetName;
+            CityName = user.CityName;
+            Urank = user.Urank;
+            Description = user.Description;
         }
 
-        public UserDTO() { }
-        public UserDTO(Models.User modelUser)
+        // Function to convert DTO back to Users model
+        public User ToModel()
         {
-            this.UserId = modelUser.UserId;
-            this.Username = modelUser.Username;
-            this.Password = modelUser.Password;
-            this.PictureUrl = modelUser.PictureUrl;
-            this.FirstName = modelUser.FirstName;
-            this.LastName = modelUser.LastName;
-            this.PhoneNum = modelUser.PhoneNum;
-            this.HomeNum = modelUser.HomeNum;
-            this.StreetName = modelUser.StreetName;
-            this.CityName = modelUser.CityName;
-            this.URank = modelUser.Urank;
-            this.Description = modelUser.Description;
+            return new User
+            {
+                UserId = UserId,
+                Username = Username,
+                Password = Password,
+                PictureUrl = PictureUrl,
+                FirstName = FirstName,
+                LastName = LastName,
+                PhoneNum = PhoneNum,
+                HomeNum = HomeNum,
+                StreetName = StreetName,
+                CityName = CityName,
+                Urank = Urank,
+                Description = Description
+            };
         }
     }
+
 }

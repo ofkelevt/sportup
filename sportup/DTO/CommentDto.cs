@@ -7,12 +7,25 @@ namespace sportup.DTO
         public int CommentId { get; set; }
         public int CommenterId { get; set; }
         public int CommentedOnId { get; set; }
-        public string CommentText { get; set; }
+        public string? CommentText { get; set; }
         public DateTime CreatedAt { get; set; }
         public int Rating { get; set; }
-        public Models.Comment ToModelsComment()
+
+        public CommentDto() { }
+
+        public CommentDto(Comment comment)
         {
-            return new Models.Comment()
+            CommentId = comment.CommentId;
+            CommenterId = comment.CommenterId;
+            CommentedOnId = comment.CommentedOnId;
+            CommentText = comment.CommentText;
+            CreatedAt = comment.CreatedAt;
+            Rating = comment.Rating;
+        }
+
+        public Comment ToModel()
+        {
+            return new Comment
             {
                 CommentId = CommentId,
                 CommenterId = CommenterId,
@@ -22,16 +35,6 @@ namespace sportup.DTO
                 Rating = Rating
             };
         }
-
-        public                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        CommentDto() { }
-        public CommentDto(Models.Comment modelComment)
-        {
-            this.CommentId = modelComment.CommentId;
-            this.CommenterId = modelComment.CommenterId;
-            this.CommentedOnId = modelComment.CommentedOnId;
-            this.CommentText = modelComment.CommentText;
-            this.CreatedAt = modelComment.CreatedAt;
-            this.Rating = modelComment.Rating;
-        }
     }
+
 }

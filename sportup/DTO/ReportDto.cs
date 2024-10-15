@@ -1,35 +1,37 @@
-﻿namespace sportup.Dtos
+﻿using sportup.Models;
+
+namespace sportup.Dtos
 {
     public class ReportDto
     {
         public int ReportId { get; set; }
-        public int ReportedById { get; set; }
-        public int ReportedAgainstId { get; set; }
-        public string Text { get; set; }
+        public int ReporterId { get; set; }
+        public int TargetId { get; set; }
+        public string? CommentText { get; set; }
         public DateTime CreatedAt { get; set; }
-        public Models.Report ToModelsReport(ReportDto dto)
-        {
-            return new Models.Report()
-            {
-                ReportId = dto.ReportId,
-                ReporterId = dto.ReportedById,
-                TargetId = dto.ReportedAgainstId,
-                Comment = dto.Text,
-                CreatedAt = dto.CreatedAt
-            };
-        }
 
-        // Empty builder
         public ReportDto() { }
 
-        // Builder that accepts a Report model
-        public ReportDto(Models.Report report)
+        public ReportDto(Report report)
         {
             ReportId = report.ReportId;
-            ReportedById = report.ReporterId;
-            ReportedAgainstId = report.TargetId;
-            Text = report.Comment;
+            ReporterId = report.ReporterId;
+            TargetId = report.TargetId;
+            CommentText = report.CommentText;
             CreatedAt = report.CreatedAt;
         }
+
+        public Report ToModel()
+        {
+            return new Report
+            {
+                ReportId = ReportId,
+                ReporterId = ReporterId,
+                TargetId = TargetId,
+                CommentText = CommentText,
+                CreatedAt = CreatedAt
+            };
+        }
     }
+
 }

@@ -47,7 +47,7 @@ namespace sportup.Controllers
                 //Login suceed! now mark login in session memory!
                 HttpContext.Session.SetString("loggedInUser", $"{modelsUser.UserId}");
 
-                return Ok(new DTO.UserDTO(modelsUser));
+                return Ok(new DTO.UserDto(modelsUser));
             }
             catch (Exception ex)
             {
@@ -76,7 +76,7 @@ namespace sportup.Controllers
                 //user is logged in - lets check who is the user
                 Models.User modelsUser = context.GetUSerFromDB(int.Parse(userId));
 
-                return Ok(new DTO.UserDTO(modelsUser));
+                return Ok(new DTO.UserDto(modelsUser));
             }
             catch (Exception ex)
             {

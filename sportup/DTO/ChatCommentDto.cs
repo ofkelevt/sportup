@@ -1,32 +1,37 @@
-﻿namespace sportup.Dtos
+﻿using sportup.Models;
+
+namespace sportup.Dtos
 {
     public class ChatCommentDto
     {
-        public int ChatCommentId { get; set; }
-        public int UserId { get; set; }
-        public string CommentText { get; set; }
+        public int CommentId { get; set; }
+        public int CommenterId { get; set; }
+        public int EventId { get; set; }
+        public string? CommentText { get; set; }
         public DateTime CreatedAt { get; set; }
-        public Models.ChatComment ToModelsChatComment(ChatCommentDto dto)
-        {
-            return new Models.ChatComment()
-            {
-                CommentId = dto.ChatCommentId,
-                CommenterId = dto.UserId,
-                CommentText = dto.CommentText,
-                CreatedAt = dto.CreatedAt
-            };
-        }
 
-        // Empty builder
         public ChatCommentDto() { }
 
-        // Builder that accepts a ChatComment model
-        public ChatCommentDto(Models.ChatComment chatComment)
+        public ChatCommentDto(ChatComment chatComment)
         {
-            ChatCommentId = chatComment.CommentId;
-            UserId = chatComment.CommenterId;
+            CommentId = chatComment.CommentId;
+            CommenterId = chatComment.CommenterId;
+            EventId = chatComment.EventId;
             CommentText = chatComment.CommentText;
             CreatedAt = chatComment.CreatedAt;
         }
+
+        public ChatComment ToModel()
+        {
+            return new ChatComment
+            {
+                CommentId = CommentId,
+                CommenterId = CommenterId,
+                EventId = EventId,
+                CommentText = CommentText,
+                CreatedAt = CreatedAt
+            };
+        }
     }
+
 }

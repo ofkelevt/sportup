@@ -1,4 +1,5 @@
 ﻿using Humanizer;
+using sportup.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace sportup.DTO
@@ -6,58 +7,51 @@ namespace sportup.DTO
     public class EventDto
     {
         public int EventId { get; set; }
-
-        public string HomeNum { get; set; }
-
-        public string StreetName { get; set; }
-
-        public string CityName { get; set; }
-        public string PictureUrl { get; set; }
-
+        public string? HomeNum { get; set; }
+        public string? StreetName { get; set; }
+        public string? CityName { get; set; }
+        public string? PictureUrl { get; set; }
         public string Sport { get; set; }
-
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public string Description { get; set; }
-
-        public DateTime EndsAt { get; set; }
-
+        public DateTime CreatedAt { get; set; }
+        public string? Description { get; set; }
+        public DateTime? EndsAt { get; set; }
         public string EventName { get; set; }
-        public string Crator_Id { get; set; }
+        public int CratorId { get; set; }
 
-        public Models.Event ToModelsUserToEvent(EventDto dto)
-        {
-            return new Models.Event()
-            {
-                EventId = dto.EventId,
-                HomeNum = dto.HomeNum,
-                StreetName = dto.StreetName,
-                CityName = dto.CityName,
-                PictureUrl = dto.PictureUrl,
-                Sport = dto.Sport,
-                CreatedAt = dto.CreatedAt,
-                EndsAt = dto.EndsAt,
-                EventName = dto.EventName,
-                Crator_Id = dto.Crator_Id,
-                Description = dto.Description
-            };
-        }
-        // Empty builder
         public EventDto() { }
 
-        // Builder that accepts a UserToEvent model
-        public EventDto(Models.Event events)
+        public EventDto(Event e)
         {
-            EventId = events.EventId;
-            HomeNum = events.HomeNum;
-            StreetName = events.StreetName;
-            CityName = events.CityName;
-            PictureUrl = events.PictureUrl;
-            Sport = events.Sport;
-            CreatedAt = events.CreatedAt;
-            EndsAt = (System.DateTime)events.EndsAt;
-            EventName = events.EventName;
-            Crator_Id = events.Crator_Id;
-            Description = events.Description;
+            EventId = e.EventId;
+            HomeNum = e.HomeNum;
+            StreetName = e.StreetName;
+            CityName = e.CityName;
+            PictureUrl = e.PictureUrl;
+            Sport = e.Sport;
+            CreatedAt = e.CreatedAt;
+            Description = e.Description;
+            EndsAt = e.EndsAt;
+            EventName = e.EventName;
+            CratorId = e.CratorId;
+        }
+
+        public Event ToModel()
+        {
+            return new Event
+            {
+                EventId = EventId,
+                HomeNum = HomeNum,
+                StreetName = StreetName,
+                CityName = CityName,
+                PictureUrl = PictureUrl,
+                Sport = Sport,
+                CreatedAt = CreatedAt,
+                Description = Description,
+                EndsAt = EndsAt,
+                EventName = EventName,
+                CratorId = CratorId
+            };
         }
     }
+
 }
