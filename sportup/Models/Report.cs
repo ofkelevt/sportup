@@ -26,9 +26,9 @@ namespace sportup.Models
 
         // Navigation Properties
         [Required]
-        public User Reporter { get; set; }
+        public Users Reporter { get; set; }
         [Required]
-        public User Target { get; set; }
+        public Users Target { get; set; }
     }
 
 }

@@ -26,8 +26,8 @@ namespace sportup.Models
         public int Rating { get; set; }
 
         // Navigation Properties
-        public User Commenter { get; set; }
-        public User CommentedOn { get; set; }
+        public Users Commenter { get; set; }
+        public Users CommentedOn { get; set; }
     }
 
 }

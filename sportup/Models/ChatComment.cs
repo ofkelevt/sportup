@@ -22,7 +22,7 @@ namespace sportup.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         // Navigation Properties
-        public User Commenter { get; set; }
+        public Users Commenter { get; set; }
         public Event Event { get; set; }
     }
 

@@ -21,7 +21,7 @@ namespace sportup.DTO
         public UserDto() { }
 
         // Constructor that takes a Users model
-        public UserDto(User user)
+        public UserDto(Users user)
         {
             UserId = user.UserId;
             Username = user.Username;
@@ -38,9 +38,9 @@ namespace sportup.DTO
         }
 
         // Function to convert DTO back to Users model
-        public User ToModel()
+        public Users ToModel()
         {
-            return new User
+            return new Users
             {
                 UserId = UserId,
                 Username = Username,

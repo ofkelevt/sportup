@@ -22,7 +22,7 @@ namespace sportup.Models
         public string RealtionshipType { get; set; }
 
         // Navigation Properties
-        public User User { get; set; }
+        public Users User { get; set; }
         public Event Event { get; set; }
     }
 

@@ -101,11 +101,16 @@ Go
 
 
 
-select * from user_to_event
+select * from event
 
-insert into users values('idk','2042007o',NULL,'ofek','levy','0587333645','1','aviv','hod hasron',1,'cool')
-insert into event values(null,null,null,null,'tenis',null,null,'hi','1')
-insert into user_to_event values('1','3','none')
+insert into users values('idk','2042007o',NULL,'ofek','levy','0587333645','1','aviv','hod hasron',1,'cool');
+insert into users values('idk1','2042007o',NULL,'ofek','levy','0587333645','1','aviv','hod hasron',1,'cool');
+insert into event values(null,null,null,null,'tenis',null,null,'hi','1');
+INSERT INTO user_to_event 
+VALUES 
+(1, 1, 'attend'), 
+(1, 2, 'creator');
+
 --EF Code
 /*
 scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=sport_server;User ID=TaskAdminLogin;Password=kukuPassword;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context sportupDBContext -DataAnnotations -force

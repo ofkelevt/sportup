@@ -8,7 +8,7 @@ namespace sportup.Data
             : base(options) { }
 
         // DbSets for each table
-        public DbSet<User> Users { get; set; }
+        public DbSet<Users> Users { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<UserToEvent> UserToEvents { get; set; }
         public DbSet<Comment> Comments { get; set; }

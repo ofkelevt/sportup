@@ -36,7 +36,7 @@ namespace sportup.Controllers
 
                 //Get model user class from DB with matching email. 
 
-                Models.User modelsUser = context.GetUSerFromDB(loginDto.UserId);
+                Models.Users modelsUser = context.GetUSerFromDB(loginDto.UserId);
 
                 //Check if user exist for this email and if password match, if not return Access Denied (Error 403) 
                 if (modelsUser == null || modelsUser.Password != loginDto.Password)
@@ -74,7 +74,7 @@ namespace sportup.Controllers
 
 
                 //user is logged in - lets check who is the user
-                Models.User modelsUser = context.GetUSerFromDB(int.Parse(userId));
+                Models.Users modelsUser = context.GetUSerFromDB(int.Parse(userId));
 
                 return Ok(new DTO.UserDto(modelsUser));
             }

@@ -40,7 +40,7 @@ namespace sportup.Models
 
         // Navigation Properties
         [Required]
-        public User Crator { get; set; }
+        public Users Crator { get; set; }
         [Required]
         public ICollection<UserToEvent> Participants { get; set; }
         [Required]

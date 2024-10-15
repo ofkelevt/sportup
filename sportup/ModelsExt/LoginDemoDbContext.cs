@@ -7,9 +7,9 @@ namespace sportup.Models
 
     public partial class LoginDemoDbContext : DbContext
     {
-        public Models.User GetUSerFromDB(int UserId)
+        public Models.Users GetUSerFromDB(int UserId)
         {
-            Models.User user = this.Users.Where(u => u.UserId == UserId).FirstOrDefault();
+            Models.Users user = this.Users.Where(u => u.UserId == UserId).FirstOrDefault();
             return user;
         }
     }
