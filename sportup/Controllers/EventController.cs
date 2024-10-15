@@ -18,14 +18,18 @@ namespace sportup.Controllers
         {
             _context = context;
         }
-
+        // GET: api/events/status
+        [HttpGet("status")]
+        public IActionResult GetServerStatus()
+        {
+            return Ok("server up and connected");
+        }
         // GET: api/Events
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
         {
             return await _context.Events.ToListAsync();
         }
-
         // GET: api/Events/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Event>> GetEvent(int id)
