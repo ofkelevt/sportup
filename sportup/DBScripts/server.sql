@@ -101,15 +101,47 @@ Go
 
 
 
-select * from event
+-- Insert values into the 'users' table
+INSERT INTO users (username, password, picture_url, first_name, last_name, phone_num, home_num, street_name, city_name, urank, description) 
+VALUES 
+('john_doe', 'password123', 'https://example.com/pic1.jpg', 'John', 'Doe', '1234567890', '22', 'Main St', 'New York', 5, 'Active user and sports enthusiast.'),
+('jane_smith', 'securePass!', 'https://example.com/pic2.jpg', 'Jane', 'Smith', '0987654321', '10', 'Elm St', 'Boston', 4, 'Frequent event organizer.'),
+('mark_jones', 'pass1234', NULL, 'Mark', 'Jones', NULL, '50', 'Lake Ave', 'San Francisco', 3, 'Casual user interested in fitness.');
 
-insert into users values('idk','2042007o',NULL,'ofek','levy','0587333645','1','aviv','hod hasron',1,'cool');
-insert into users values('idk1','2042007o',NULL,'ofek','levy','0587333645','1','aviv','hod hasron',1,'cool');
-insert into event values(null,null,null,null,'tenis',null,null,'hi','1');
-INSERT INTO user_to_event 
+-- Insert values into the 'event' table
+INSERT INTO event (home_num, street_name, city_name, picture_url, sport, created_at, description, ends_at, event_name, crator_id)
+VALUES
+('22', 'Main St', 'New York', 'https://example.com/event1.jpg', 'Basketball', GETDATE(), 'Friendly game at the community court.', DATEADD(day, 1, GETDATE()), 'Community Basketball', 1),
+('10', 'Elm St', 'Boston', 'https://example.com/event2.jpg', 'Yoga', GETDATE(), 'Morning yoga session in the park.', DATEADD(day, 2, GETDATE()), 'Morning Yoga', 2);
+
+-- Insert values into 'user_to_event' table
+INSERT INTO user_to_event (user_id, event_id, realtionship_type) 
 VALUES 
 (1, 1, 'attend'), 
-(1, 2, 'creator');
+(1, 2, 'creator'), 
+(2, 1, 'attend'), 
+(3, 2, 'attend');
+
+-- Insert values into 'comment' table
+INSERT INTO comment (commenter_id, commented_on_id, comment, created_at, rating) 
+VALUES 
+(1, 2, 'Great experience!', GETDATE(), 5), 
+(2, 1, 'Very helpful user.', GETDATE(), 4), 
+(3, 1, 'Needs improvement.', GETDATE(), 2);
+
+-- Insert values into 'chat_comment' table
+INSERT INTO chat_comment (commenter_id, event_id, comment, created_at) 
+VALUES 
+(1, 1, 'Looking forward to the event!', GETDATE()), 
+(2, 1, 'Can’t wait!', GETDATE()), 
+(3, 2, 'Any updates on the location?', GETDATE());
+
+-- Insert values into 'report' table
+INSERT INTO report (reporter_id, target_id, comment, created_at) 
+VALUES 
+(2, 1, 'Spamming in chats', GETDATE()), 
+(3, 2, 'Inappropriate behavior', GETDATE());
+
 
 --EF Code
 /*
