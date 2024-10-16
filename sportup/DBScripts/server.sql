@@ -49,7 +49,6 @@ CREATE TABLE user_to_event (
     FOREIGN KEY (event_id) REFERENCES event(event_id) ON DELETE NO ACTION
 );
 GO
-
 -- Create the comment table
 CREATE TABLE comment (
     comment_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -99,7 +98,7 @@ Go
 ALTER ROLE db_owner ADD MEMBER [TaskAdminUser];
 Go
 
-
+SELECT * FROM user_to_event
 -- Insert values into the 'users' table
 INSERT INTO users (username, password, picture_url, first_name, last_name, phone_num, home_num, street_name, city_name, urank, description) 
 VALUES 
@@ -117,7 +116,7 @@ VALUES
 INSERT INTO user_to_event (user_id, event_id, realtionship_type) 
 VALUES 
 (1, 1, 'attend'), 
-(1, 2, 'creator'), 
+(1, 2, 'waiting'), 
 (2, 1, 'attend'), 
 (3, 2, 'attend');
 
@@ -140,7 +139,6 @@ INSERT INTO report (reporter_id, target_id, comment, created_at)
 VALUES 
 (2, 1, 'Spamming in chats', GETDATE()), 
 (3, 2, 'Inappropriate behavior', GETDATE());
-
 
 --EF Code
 /*
