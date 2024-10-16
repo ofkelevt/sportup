@@ -7,19 +7,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace sportup.Models
 {
+    [Table("user_to_event")]
     public class UserToEvent
     {
         [Key]
+        [Column("table_id")]
         public int TableId { get; set; }
 
-        [Required]
+        [ForeignKey("User")]
+        [Column("user_id")]
         public int UserId { get; set; }
 
-        [Required]
+        [ForeignKey("Event")]
+        [Column("event_id")]
         public int EventId { get; set; }
 
         [MaxLength(8)]
-        public string RealtionshipType { get; set; }
+        [Column("realtionship_type")]
+        public string? RealtionshipType { get; set; }
 
         // Navigation Properties
         public Users User { get; set; }

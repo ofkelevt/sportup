@@ -7,22 +7,31 @@ using Microsoft.EntityFrameworkCore;
 namespace sportup.Models
 {
 
+    [Table("comment")]
     public class Comment
     {
         [Key]
+        [Column("comment_id")]
         public int CommentId { get; set; }
 
-        [Required]
+        [ForeignKey("User")]
+        [Column("commenter_id")]
         public int CommenterId { get; set; }
 
-        [Required]
+
+        [ForeignKey("User")]
+        [Column("commented_on_id")]
         public int CommentedOnId { get; set; }
 
-        public string CommentText { get; set; }
 
+        [Column("comment")]
+        public string? CommentText { get; set; }
+
+        [Column("created_at")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         [Range(1, 5)]
+        [Column("rating")]
         public int Rating { get; set; }
 
         // Navigation Properties

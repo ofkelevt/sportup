@@ -100,7 +100,6 @@ ALTER ROLE db_owner ADD MEMBER [TaskAdminUser];
 Go
 
 
-
 -- Insert values into the 'users' table
 INSERT INTO users (username, password, picture_url, first_name, last_name, phone_num, home_num, street_name, city_name, urank, description) 
 VALUES 

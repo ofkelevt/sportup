@@ -45,7 +45,7 @@ namespace sportup.DTO
                 CityName = CityName,
                 PictureUrl = PictureUrl,
                 Sport = Sport,
-                CreatedAt = CreatedAt,
+                CreatedAt= CreatedAt,
                 Description = Description,
                 EndsAt = EndsAt,
                 EventName = EventName,

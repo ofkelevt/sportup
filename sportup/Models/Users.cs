@@ -7,41 +7,56 @@ using System.Collections.Generic;
 
 namespace sportup.Models
 {
+    [Table("users")]
     public class Users
     {
         [Key]
+        [Column("user_id")]
         public int UserId { get; set; }
 
-        [Required, MaxLength(50)]
+        [Required]
+        [MaxLength(50)]
+        [Column("username")]
         public string Username { get; set; }
 
-        [Required, MaxLength(100)]
-        public string Password { get; set; }
+        [MaxLength(100)]
+        [Column("password")]
+        public string? Password { get; set; }  // Sensitive data nullable
 
-        [MaxLength(255)]
-        public string PictureUrl { get; set; }
+        [Column("picture_url")]
+        public string? PictureUrl { get; set; }
 
-        [Required, MaxLength(50)]
+        [Required]
+        [MaxLength(50)]
+        [Column("first_name")]
         public string FirstName { get; set; }
 
-        [Required, MaxLength(50)]
+        [Required]
+        [MaxLength(50)]
+        [Column("last_name")]
         public string LastName { get; set; }
 
         [MaxLength(15)]
-        public string PhoneNum { get; set; }
+        [Column("phone_num")]
+        public string? PhoneNum { get; set; }
 
         [MaxLength(10)]
-        public string HomeNum { get; set; }
+        [Column("home_num")]
+        public string? HomeNum { get; set; }
 
         [MaxLength(100)]
-        public string StreetName { get; set; }
+        [Column("street_name")]
+        public string? StreetName { get; set; }
 
         [MaxLength(50)]
-        public string CityName { get; set; }
+        [Column("city_name")]
+        public string? CityName { get; set; }
 
+        [Column("urank")]
         public int? Urank { get; set; }
 
-        public string Description { get; set; }
+        [Column("description")]
+        public string? Description { get; set; }
 
         // Navigation Properties
         public ICollection<Event> CreatedEvents { get; set; }

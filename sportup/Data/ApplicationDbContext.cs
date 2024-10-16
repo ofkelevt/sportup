@@ -18,15 +18,15 @@ namespace sportup.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            // Configure User -> Event relationship (One-to-Many)
+            modelBuilder.Entity<Event>().ToTable("event");
+            //Configure User -> Event relationship(One-to - Many)
             modelBuilder.Entity<Event>()
                 .HasOne(e => e.Crator)
                 .WithMany(u => u.CreatedEvents)
                 .HasForeignKey(e => e.CratorId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Configure UserToEvent relationship (Many-to-Many)
+            //Configure UserToEvent relationship(Many - to - Many)
             modelBuilder.Entity<UserToEvent>()
                 .HasOne(ue => ue.User)
                 .WithMany(u => u.UserEvents)
@@ -52,7 +52,7 @@ namespace sportup.Data
                 .HasForeignKey(c => c.CommentedOnId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Configure ChatComment relationships
+            //Configure ChatComment relationships
             modelBuilder.Entity<ChatComment>()
                 .HasOne(cc => cc.Commenter)
                 .WithMany(u => u.ChatComments)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using sportup.Data;
 using sportup.Models;
 using System.Collections.Generic;
@@ -34,14 +35,22 @@ namespace sportup.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Event>> GetEvent(int id)
         {
-            var eventItem = await _context.Events.FindAsync(id);
-
-            if (eventItem == null)
+            try
             {
-                return NotFound();
+                var eventItem = await _context.Events.FindAsync(id);
+                if (eventItem == null)
+                {
+                    return NotFound();
+                }
+
+                return eventItem;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
-            return eventItem;
+            
         }
 
         // PUT: api/Events/5
