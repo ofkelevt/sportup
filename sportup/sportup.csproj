@@ -8,7 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\LoginController.cs" />
+    <Compile Remove="ModelsExt\**" />
+    <Content Remove="ModelsExt\**" />
+    <EmbeddedResource Remove="ModelsExt\**" />
+    <None Remove="ModelsExt\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\LoginDemoDbContext.cs" />
   </ItemGroup>
 
   <ItemGroup>

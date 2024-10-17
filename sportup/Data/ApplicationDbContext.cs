@@ -78,5 +78,10 @@ namespace sportup.Data
                 .HasForeignKey(r => r.TargetId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
+        public Models.Users GetUSerFromDB(string UserName)
+        {
+            Models.Users user = this.Users.Where(u => u.Username == UserName).FirstOrDefault();
+            return user;
+        }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
 using Humanizer;
-
+using sportup.Data;
 
 namespace sportup.Controllers
 {
@@ -15,20 +15,20 @@ namespace sportup.Controllers
     {
         //a variable to hold a reference to the db context!
 
-        private LoginDemoDbContext context;
+        private ApplicationDbContext context;
 
         //Use dependency injection to get the db context intot he constructor
 
 
 
-        public LoginController(LoginDemoDbContext context)
+        public LoginController(ApplicationDbContext context)
         {
             this.context = context;
         }
 
         // POST api/login
         [HttpPost("login")]
-        public IActionResult Login([FromBody] DTO.LoginInfo loginDto)
+        public IActionResult Login([FromBody]LoginInfo loginDto)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace sportup.Controllers
 
                 //Get model user class from DB with matching email. 
 
-                Models.Users modelsUser = context.GetUSerFromDB(loginDto.UserId);
+                Models.Users modelsUser = context.GetUSerFromDB(loginDto.UserName);
 
                 //Check if user exist for this email and if password match, if not return Access Denied (Error 403) 
                 if (modelsUser == null || modelsUser.Password != loginDto.Password)
@@ -45,7 +45,7 @@ namespace sportup.Controllers
                 }
 
                 //Login suceed! now mark login in session memory!
-                HttpContext.Session.SetString("loggedInUser", $"{modelsUser.UserId}");
+                HttpContext.Session.SetString("loggedInUser", modelsUser.Username);
 
                 return Ok(new DTO.UserDto(modelsUser));
             }
@@ -65,16 +65,16 @@ namespace sportup.Controllers
             try
             {
                 //Check if user is logged in 
-                string userId = HttpContext.Session.GetString("loggedInUser");
+                string userName = HttpContext.Session.GetString("loggedInUser");
 
-                if (string.IsNullOrEmpty(userId))
+                if (string.IsNullOrEmpty(userName))
                 {
                     return Unauthorized("User is not logged in");
                 }
 
 
                 //user is logged in - lets check who is the user
-                Models.Users modelsUser = context.GetUSerFromDB(int.Parse(userId));
+                Models.Users modelsUser = context.GetUSerFromDB(userName);
 
                 return Ok(new DTO.UserDto(modelsUser));
             }
