@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using sportup.Data;
 using sportup.Models;
+using sportup.DTO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using sportup.Dtos;
 
 namespace sportup.Controllers
 {
@@ -21,14 +23,14 @@ namespace sportup.Controllers
 
         // GET: api/Reports
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Report>>> GetReports()
+        public async Task<ActionResult<IEnumerable<ReportDto>>> GetReports()
         {
-            return await _context.Reports.ToListAsync();
+            return await _context.Reports.Select(u => new ReportDto(u)).ToListAsync();
         }
 
         // GET: api/Reports/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Report>> GetReport(int id)
+        public async Task<ActionResult<ReportDto>> GetReport(int id)
         {
             var report = await _context.Reports.FindAsync(id);
 
@@ -37,19 +39,19 @@ namespace sportup.Controllers
                 return NotFound();
             }
 
-            return report;
+            return new ReportDto(report);
         }
 
         // PUT: api/Reports/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutReport(int id, Report report)
+        public async Task<IActionResult> PutReport(int id, ReportDto report)
         {
             if (id != report.ReporterId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(report).State = EntityState.Modified;
+            _context.Entry(report.ToModel()).State = EntityState.Modified;
 
             try
             {
@@ -72,12 +74,12 @@ namespace sportup.Controllers
 
         // POST: api/Reports
         [HttpPost]
-        public async Task<ActionResult<Report>> PostReport(Report report)
+        public async Task<ActionResult<Report>> PostReport(ReportDto report)
         {
-            _context.Reports.Add(report);
+            _context.Reports.Add(report.ToModel());
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReport", new { id = report.ReporterId }, report);
+            return CreatedAtAction("GetReport", new { id = report.ReporterId }, report.ToModel());
         }
 
         // DELETE: api/Reports/5

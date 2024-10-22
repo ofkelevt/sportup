@@ -5,6 +5,9 @@ using sportup.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using sportup.DTO;
+using sportup.Dtos;
+using System.Data;
 
 namespace sportup.Controllers
 {
@@ -21,14 +24,14 @@ namespace sportup.Controllers
 
         // GET: api/UserToEvent
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserToEvent>>> GetUserToEvents()
+        public async Task<ActionResult<IEnumerable<UserToEventDto>>> GetUserToEvents()
         {
-            return await _context.UserToEvents.ToListAsync();
+            return await _context.UserToEvents.Select(u => new UserToEventDto(u)).ToListAsync();
         }
 
         // GET: api/UserToEvent/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserToEvent>> GetUserToEvent(int id)
+        public async Task<ActionResult<UserToEventDto>> GetUserToEvent(int id)
         {
             var userToEvent = await _context.UserToEvents.FindAsync(id);
 
@@ -37,19 +40,19 @@ namespace sportup.Controllers
                 return NotFound();
             }
 
-            return userToEvent;
+            return new UserToEventDto(userToEvent);
         }
 
         // PUT: api/UserToEvent/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserToEvent(int id, UserToEvent userToEvent)
+        public async Task<IActionResult> PutUserToEvent(int id, UserToEventDto userToEvent)
         {
             if (id != userToEvent.TableId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(userToEvent).State = EntityState.Modified;
+            _context.Entry(userToEvent.ToModel()).State = EntityState.Modified;
 
             try
             {
@@ -72,12 +75,12 @@ namespace sportup.Controllers
 
         // POST: api/UserToEvent
         [HttpPost]
-        public async Task<ActionResult<UserToEvent>> PostUserToEvent(UserToEvent userToEvent)
+        public async Task<ActionResult<UserToEvent>> PostUserToEvent(UserToEventDto userToEvent)
         {
-            _context.UserToEvents.Add(userToEvent);
+            _context.UserToEvents.Add(userToEvent.ToModel());
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUserToEvent", new { id = userToEvent.TableId }, userToEvent);
+            return CreatedAtAction("GetUserToEvent", new { id = userToEvent.TableId }, userToEvent.ToModel());
         }
 
         // DELETE: api/UserToEvent/5
@@ -87,7 +90,7 @@ namespace sportup.Controllers
             var userToEvent = await _context.UserToEvents.FindAsync(id);
             if (userToEvent == null)
             {
-                return NotFound();
+                return NotFound();  
             }
 
             _context.UserToEvents.Remove(userToEvent);

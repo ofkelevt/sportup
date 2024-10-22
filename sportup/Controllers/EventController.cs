@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using sportup.Data;
 using sportup.Models;
+using sportup.DTO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,13 +28,13 @@ namespace sportup.Controllers
         }
         // GET: api/Events
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
+        public async Task<ActionResult<IEnumerable<EventDto>>> GetEvents()
         {
-            return await _context.Events.ToListAsync();
+            return await _context.Events.Select(u => new EventDto(u)).ToListAsync();
         }
         // GET: api/Events/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Event>> GetEvent(int id)
+        public async Task<ActionResult<EventDto>> GetEvent(int id)
         {
             try
             {
@@ -43,7 +44,7 @@ namespace sportup.Controllers
                     return NotFound();
                 }
 
-                return eventItem;
+                return new EventDto(eventItem);
             }
             catch (Exception ex)
             {
@@ -55,14 +56,14 @@ namespace sportup.Controllers
 
         // PUT: api/Events/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEvent(int id, Event eventItem)
+        public async Task<IActionResult> PutEvent(int id, EventDto eventItem)
         {
             if (id != eventItem.EventId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(eventItem).State = EntityState.Modified;
+            _context.Entry(eventItem.ToModel()).State = EntityState.Modified;
 
             try
             {
@@ -85,12 +86,12 @@ namespace sportup.Controllers
 
         // POST: api/Events
         [HttpPost]
-        public async Task<ActionResult<Event>> PostEvent(Event eventItem)
+        public async Task<ActionResult<Event>> PostEvent(EventDto eventItem)
         {
-            _context.Events.Add(eventItem);
+            _context.Events.Add(eventItem.ToModel());
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEvent", new { id = eventItem.EventId }, eventItem);
+            return CreatedAtAction("GetEvent", new { id = eventItem.EventId }, eventItem.ToModel());
         }
 
         // DELETE: api/Events/5

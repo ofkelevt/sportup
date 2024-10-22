@@ -5,7 +5,7 @@ using sportup.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using sportup.DTO;
 namespace sportup.Controllers
 {
     [Route("api/[controller]")]
@@ -21,14 +21,14 @@ namespace sportup.Controllers
 
         // GET: api/Comments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
+        public async Task<ActionResult<IEnumerable<CommentDto>>> GetComments()
         {
-            return await _context.Comments.ToListAsync();
+            return await _context.Comments.Select(u => new CommentDto(u)).ToListAsync();
         }
 
         // GET: api/Comments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Comment>> GetComment(int id)
+        public async Task<ActionResult<CommentDto>> GetComment(int id)
         {
             var comment = await _context.Comments.FindAsync(id);
 
@@ -37,19 +37,19 @@ namespace sportup.Controllers
                 return NotFound();
             }
 
-            return comment;
+            return new CommentDto(comment);
         }
 
         // PUT: api/Comments/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutComment(int id, Comment comment)
+        public async Task<IActionResult> PutComment(int id, CommentDto comment)
         {
             if (id != comment.CommentId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(comment).State = EntityState.Modified;
+            _context.Entry(comment.ToModel()).State = EntityState.Modified;
 
             try
             {
@@ -72,12 +72,12 @@ namespace sportup.Controllers
 
         // POST: api/Comments
         [HttpPost]
-        public async Task<ActionResult<Comment>> PostComment(Comment comment)
+        public async Task<ActionResult<Comment>> PostComment(CommentDto comment)
         {
-            _context.Comments.Add(comment);
+            _context.Comments.Add(comment.ToModel());
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetComment", new { id = comment.CommentId }, comment);
+            return CreatedAtAction("GetComment", new { id = comment.CommentId }, comment.ToModel());
         }
 
         // DELETE: api/Comments/5

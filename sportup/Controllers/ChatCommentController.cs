@@ -5,6 +5,8 @@ using sportup.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using sportup.DTO;
+using sportup.Dtos;
 
 namespace sportup.Controllers
 {
@@ -21,14 +23,14 @@ namespace sportup.Controllers
 
         // GET: api/ChatComment
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ChatComment>>> GetChatComments()
+        public async Task<ActionResult<IEnumerable<ChatCommentDto>>> GetChatComments()
         {
-            return await _context.ChatComments.ToListAsync();
+            return await _context.ChatComments.Select(u => new ChatCommentDto(u)).ToListAsync();
         }
 
         // GET: api/ChatComment/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ChatComment>> GetChatComment(int id)
+        public async Task<ActionResult<ChatCommentDto>> GetChatComment(int id)
         {
             var chatComment = await _context.ChatComments.FindAsync(id);
 
@@ -37,19 +39,19 @@ namespace sportup.Controllers
                 return NotFound();
             }
 
-            return chatComment;
+            return new ChatCommentDto(chatComment);
         }
 
         // PUT: api/ChatComment/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutChatComment(int id, ChatComment chatComment)
+        public async Task<IActionResult> PutChatComment(int id, ChatCommentDto chatComment)
         {
             if (id != chatComment.CommentId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(chatComment).State = EntityState.Modified;
+            _context.Entry(chatComment.ToModel).State = EntityState.Modified;
 
             try
             {
@@ -72,12 +74,12 @@ namespace sportup.Controllers
 
         // POST: api/ChatComment
         [HttpPost]
-        public async Task<ActionResult<ChatComment>> PostChatComment(ChatComment chatComment)
+        public async Task<ActionResult<ChatComment>> PostChatComment(ChatCommentDto chatComment)
         {
-            _context.ChatComments.Add(chatComment);
+            _context.ChatComments.Add(chatComment.ToModel());
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetChatComment", new { id = chatComment.CommentId }, chatComment);
+            return CreatedAtAction("GetChatComment", new { id = chatComment.CommentId }, chatComment.ToModel());
         }
 
         // DELETE: api/ChatComment/5

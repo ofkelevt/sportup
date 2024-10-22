@@ -98,7 +98,7 @@ Go
 ALTER ROLE db_owner ADD MEMBER [TaskAdminUser];
 Go
 
-SELECT * FROM user_to_event
+SELECT * FROM event
 -- Insert values into the 'users' table
 INSERT INTO users (username, password, picture_url, first_name, last_name, phone_num, home_num, street_name, city_name, urank, description) 
 VALUES 
@@ -110,8 +110,8 @@ VALUES
 INSERT INTO event (home_num, street_name, city_name, picture_url, sport, created_at, description, ends_at, event_name, crator_id)
 VALUES
 ('22', 'Main St', 'New York', 'https://example.com/event1.jpg', 'Basketball', GETDATE(), 'Friendly game at the community court.', DATEADD(day, 1, GETDATE()), 'Community Basketball', 1),
-('10', 'Elm St', 'Boston', 'https://example.com/event2.jpg', 'Yoga', GETDATE(), 'Morning yoga session in the park.', DATEADD(day, 2, GETDATE()), 'Morning Yoga', 2);
-
+    ('10', 'Elm St', 'Boston', 'https://example.com/event2.jpg', 'Yoga', GETDATE(), 'Morning yoga session in the park.', DATEADD(day, 2, GETDATE()), 'Morning Yoga', 2);
+    Select * from user_to_event
 -- Insert values into 'user_to_event' table
 INSERT INTO user_to_event (user_id, event_id, realtionship_type) 
 VALUES 
