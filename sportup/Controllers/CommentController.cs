@@ -25,7 +25,11 @@ namespace sportup.Controllers
         {
             return await _context.Comments.Select(u => new CommentDto(u)).ToListAsync();
         }
-
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<IEnumerable<CommentDto>>> GetUserComments(int id)
+        {
+            return await _context.Comments.Where(u => u.CommenterId == id).Select(u => new CommentDto(u)).ToListAsync();
+        }
         // GET: api/Comments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CommentDto>> GetComment(int id)

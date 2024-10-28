@@ -41,7 +41,11 @@ namespace sportup.Controllers
 
             return new ReportDto(report);
         }
-
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<IEnumerable<ReportDto>>> GetUserReports(int id)
+        {
+            return await _context.Reports.Where(u => u.ReporterId == id).Select(u => new ReportDto(u)).ToListAsync();
+        }
         // PUT: api/Reports/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutReport(int id, ReportDto report)

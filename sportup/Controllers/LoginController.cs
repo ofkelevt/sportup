@@ -84,7 +84,18 @@ namespace sportup.Controllers
             }
 
         }
-
-
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            try
+            {
+                HttpContext.Session.Clear();
+                return Ok(new { success = true, message = "Logout successful" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { success = false, error = ex.Message });
+            }
+        }
     }
 }

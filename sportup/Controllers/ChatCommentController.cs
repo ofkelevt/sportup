@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using sportup.DTO;
 using sportup.Dtos;
+using Microsoft.IdentityModel.Tokens;
 
 namespace sportup.Controllers
 {
@@ -41,7 +42,19 @@ namespace sportup.Controllers
 
             return new ChatCommentDto(chatComment);
         }
+        // GET: api/ChatComment/5
+        [HttpGet("event/{id}")]
+        public async Task<ActionResult<IEnumerable<ChatCommentDto>>> GetEventComment(int id)
+        {
+            var chatCommentEvents = await _context.ChatComments.Where(u => u.EventId == id).Select(u => new ChatCommentDto(u)).ToListAsync();
 
+            if (chatCommentEvents.IsNullOrEmpty())
+            {
+                return NotFound();
+            }
+
+            return chatCommentEvents;
+        }
         // PUT: api/ChatComment/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutChatComment(int id, ChatCommentDto chatComment)
