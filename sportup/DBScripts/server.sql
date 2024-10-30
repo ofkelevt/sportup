@@ -98,13 +98,14 @@ Go
 ALTER ROLE db_owner ADD MEMBER [TaskAdminUser];
 Go
 
-SELECT * FROM event
+SELECT * FROM users
 -- Insert values into the 'users' table
 INSERT INTO users (username, password, picture_url, first_name, last_name, phone_num, home_num, street_name, city_name, urank, description) 
 VALUES 
-('john_doe', 'password123', 'https://example.com/pic1.jpg', 'John', 'Doe', '1234567890', '22', 'Main St', 'New York', 5, 'Active user and sports enthusiast.'),
-('jane_smith', 'securePass!', 'https://example.com/pic2.jpg', 'Jane', 'Smith', '0987654321', '10', 'Elm St', 'Boston', 4, 'Frequent event organizer.'),
-('mark_jones', 'pass1234', NULL, 'Mark', 'Jones', NULL, '50', 'Lake Ave', 'San Francisco', 3, 'Casual user interested in fitness.');
+('idk','2042007o',null,'ofek','levy','0587333645','1','aviv','hod hasron',2,'cool admin'),
+('john_doe', 'password123', 'https://example.com/pic1.jpg', 'John', 'Doe', '1234567890', '22', 'Main St', 'New York', 1, 'Active user and sports enthusiast.'),
+('jane_smith', 'securePass!', 'https://example.com/pic2.jpg', 'Jane', 'Smith', '0987654321', '10', 'Elm St', 'Boston', 1, 'Frequent event organizer.'),
+('mark_jones', 'pass1234', NULL, 'Mark', 'Jones', NULL, '50', 'Lake Ave', 'San Francisco', 1, 'Casual user interested in fitness.');
 
 -- Insert values into the 'event' table
 INSERT INTO event (home_num, street_name, city_name, picture_url, sport, created_at, description, ends_at, event_name, crator_id)

@@ -52,10 +52,12 @@ namespace sportup.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(user.ToModel()).State = EntityState.Modified;
 
             try
             {
+                var userd = await _context.Users.FindAsync(id);
+                user.Password = userd.Password;
+                _context.Entry(user.ToModel()).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
