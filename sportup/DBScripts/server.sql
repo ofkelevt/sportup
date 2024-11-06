@@ -102,6 +102,7 @@ SELECT * FROM users
 -- Insert values into the 'users' table
 INSERT INTO users (username, password, picture_url, first_name, last_name, phone_num, home_num, street_name, city_name, urank, description) 
 VALUES 
+('idk1','2042007o',null,'ofek','levy','0587333645','1','aviv','hod hasron',1,'cool admin'),
 ('idk','2042007o',null,'ofek','levy','0587333645','1','aviv','hod hasron',2,'cool admin'),
 ('john_doe', 'password123', 'https://example.com/pic1.jpg', 'John', 'Doe', '1234567890', '22', 'Main St', 'New York', 1, 'Active user and sports enthusiast.'),
 ('jane_smith', 'securePass!', 'https://example.com/pic2.jpg', 'Jane', 'Smith', '0987654321', '10', 'Elm St', 'Boston', 1, 'Frequent event organizer.'),
