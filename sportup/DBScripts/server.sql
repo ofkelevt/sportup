@@ -142,6 +142,7 @@ VALUES
 (2, 1, 'Spamming in chats', GETDATE()), 
 (3, 2, 'Inappropriate behavior', GETDATE());
 
+
 --EF Code
 /*
 scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=sport_server;User ID=TaskAdminLogin;Password=kukuPassword;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context sportupDBContext -DataAnnotations -force

@@ -65,7 +65,7 @@ namespace sportup.Controllers
             try
             {
                 //Check if user is logged in 
-                string userName = HttpContext.Session.GetString("loggedInUser");
+                string? userName = HttpContext.Session.GetString("loggedInUser");
 
                 if (string.IsNullOrEmpty(userName))
                 {

@@ -57,6 +57,7 @@ namespace sportup.Controllers
             {
                 var userd = await _context.Users.FindAsync(id);
                 user.Password = userd.Password;
+                _context.Entry(userd).State = EntityState.Detached;
                 _context.Entry(user.ToModel()).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
