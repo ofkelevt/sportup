@@ -6,7 +6,6 @@ using sportup.DTO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using sportup.Dtos;
 
 namespace sportup.Controllers
 {

@@ -1,16 +1,14 @@
 -- Create the database
 CREATE DATABASE sport_server;
 GO
-
 -- Select the database
 GO
-
 -- Create the users table
 CREATE TABLE users (
     user_id INT IDENTITY(1,1) PRIMARY KEY, 
     username VARCHAR(50) NOT NULL UNIQUE,  -- Added UNIQUE constraint for username
     password VARCHAR(100) NOT NULL,
-    picture_url VARCHAR(255),
+    picture_url VARBINARY(MAX),
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     phone_num VARCHAR(15),  -- Changed to VARCHAR to accommodate various phone formats
@@ -28,7 +26,7 @@ CREATE TABLE event (
     home_num VARCHAR(10),
     street_name VARCHAR(100),
     city_name VARCHAR(50),
-    picture_url VARCHAR(255),
+    picture_url VARBINARY(MAX),
     sport VARCHAR(50) NOT NULL,
     created_at DATETIME DEFAULT GETDATE(),
     description VARCHAR(max),
@@ -97,22 +95,21 @@ Go
 -- Add the user to the db_owner role to grant admin privileges
 ALTER ROLE db_owner ADD MEMBER [TaskAdminUser];
 Go
-
-SELECT * FROM users
--- Insert values into the 'users' table
 INSERT INTO users (username, password, picture_url, first_name, last_name, phone_num, home_num, street_name, city_name, urank, description) 
 VALUES 
 ('idk1','2042007o',null,'ofek','levy','0587333645','1','aviv','hod hasron',1,'cool admin'),
 ('idk','2042007o',null,'ofek','levy','0587333645','1','aviv','hod hasron',2,'cool admin'),
-('john_doe', 'password123', 'https://example.com/pic1.jpg', 'John', 'Doe', '1234567890', '22', 'Main St', 'New York', 1, 'Active user and sports enthusiast.'),
-('jane_smith', 'securePass!', 'https://example.com/pic2.jpg', 'Jane', 'Smith', '0987654321', '10', 'Elm St', 'Boston', 1, 'Frequent event organizer.'),
+('john_doe', 'password123', null, 'John', 'Doe', '1234567890', '22', 'Main St', 'New York', 1, 'Active user and sports enthusiast.'),
+('jane_smith', 'securePass!', null, 'Jane', 'Smith', '0987654321', '10', 'Elm St', 'Boston', 1, 'Frequent event organizer.'),
 ('mark_jones', 'pass1234', NULL, 'Mark', 'Jones', NULL, '50', 'Lake Ave', 'San Francisco', 1, 'Casual user interested in fitness.');
+
+
 
 -- Insert values into the 'event' table
 INSERT INTO event (home_num, street_name, city_name, picture_url, sport, created_at, description, ends_at, event_name, crator_id)
 VALUES
-('22', 'Main St', 'New York', 'https://example.com/event1.jpg', 'Basketball', GETDATE(), 'Friendly game at the community court.', DATEADD(day, 1, GETDATE()), 'Community Basketball', 1),
-    ('10', 'Elm St', 'Boston', 'https://example.com/event2.jpg', 'Yoga', GETDATE(), 'Morning yoga session in the park.', DATEADD(day, 2, GETDATE()), 'Morning Yoga', 2);
+('22', 'Main St', 'New York', null, 'Basketball', GETDATE(), 'Friendly game at the community court.', DATEADD(day, 1, GETDATE()), 'Community Basketball', 1),
+    ('10', 'Elm St', 'Boston', null, 'Yoga', GETDATE(), 'Morning yoga session in the park.', DATEADD(day, 2, GETDATE()), 'Morning Yoga', 2);
     Select * from user_to_event
 -- Insert values into 'user_to_event' table
 INSERT INTO user_to_event (user_id, event_id, realtionship_type) 

@@ -2,12 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 namespace sportup.DTO
 {
-    public class UserDto
+    public class UserDtor
     {
         public int UserId { get; set; }
         public string Username { get; set; }
         public string? Password { get; set; }  // Sensitive info made nullable
-        public string? PictureUrl { get; set; }
+        public IFormFile? PictureUrl { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string? PhoneNum { get; set; }
@@ -17,26 +17,6 @@ namespace sportup.DTO
         public int? Urank { get; set; }
         public string? Description { get; set; }
 
-        // Empty constructor
-        public UserDto() { }
-
-        // Constructor that takes a Users model
-        public UserDto(Users user)
-        {
-            UserId = user.UserId;
-            Username = user.Username;
-            Password = null;  // Hide sensitive data
-            PictureUrl = user.PictureUrl;
-            FirstName = user.FirstName;
-            LastName = user.LastName;
-            PhoneNum = user.PhoneNum;
-            HomeNum = user.HomeNum;
-            StreetName = user.StreetName;
-            CityName = user.CityName;
-            Urank = user.Urank;
-            Description = user.Description;
-        }
-
         // Function to convert DTO back to Users model
         public Users ToModel()
         {
@@ -45,7 +25,7 @@ namespace sportup.DTO
                 UserId = UserId,
                 Username = Username,
                 Password = Password,
-                PictureUrl = PictureUrl,
+                PictureUrl = ConvertToByteArray(PictureUrl),
                 FirstName = FirstName,
                 LastName = LastName,
                 PhoneNum = PhoneNum,
@@ -55,6 +35,17 @@ namespace sportup.DTO
                 Urank = Urank,
                 Description = Description
             };
+        }
+        public static byte[] ConvertToByteArray(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return null;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                file.CopyTo(memoryStream); // Synchronous version of CopyToAsync
+                return memoryStream.ToArray();
+            }
         }
     }
 

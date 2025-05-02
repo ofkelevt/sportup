@@ -24,7 +24,7 @@ namespace sportup.Models
         public string? Password { get; set; }  // Sensitive data nullable
 
         [Column("picture_url")]
-        public string? PictureUrl { get; set; }
+        public Byte[]? PictureUrl { get; set; }
 
         [Required]
         [MaxLength(50)]

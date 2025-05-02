@@ -1,6 +1,6 @@
 ﻿using sportup.Models;
 
-namespace sportup.Dtos
+namespace sportup.DTO
 {
     public class ChatCommentDto
     {

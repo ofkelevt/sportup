@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using sportup.DTO;
-using sportup.Dtos;
 using System.Data;
 
 namespace sportup.Controllers

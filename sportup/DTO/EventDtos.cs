@@ -1,10 +1,10 @@
-﻿using Humanizer;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
 using sportup.Models;
-using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
 
 namespace sportup.DTO
 {
-    public class EventDto
+    public class EventDtos
     {
         public int EventId { get; set; }
         public string? HomeNum { get; set; }
@@ -17,16 +17,13 @@ namespace sportup.DTO
         public DateTime? EndsAt { get; set; }
         public string EventName { get; set; }
         public int CratorId { get; set; }
-
-        public EventDto() { }
-
-        public EventDto(Event e)
+        public EventDtos(Event e)
         {
             EventId = e.EventId;
             HomeNum = e.HomeNum;
             StreetName = e.StreetName;
             CityName = e.CityName;
-            PictureUrl = e.PictureUrl;
+            PictureUrl = ConvertToBase64(e.PictureUrl);
             Sport = e.Sport;
             CreatedAt = e.CreatedAt;
             Description = e.Description;
@@ -34,24 +31,12 @@ namespace sportup.DTO
             EventName = e.EventName;
             CratorId = e.CratorId;
         }
-
-        public Event ToModel()
+        public static string ConvertToBase64(byte[] data)
         {
-            return new Event
-            {
-                EventId = EventId,
-                HomeNum = HomeNum,
-                StreetName = StreetName,
-                CityName = CityName,
-                PictureUrl = PictureUrl,
-                Sport = Sport,
-                CreatedAt= CreatedAt,
-                Description = Description,
-                EndsAt = EndsAt,
-                EventName = EventName,
-                CratorId = CratorId
-            };
+            if (data == null || data.Length == 0)
+                return null;
+
+            return Convert.ToBase64String(data);
         }
     }
-
 }

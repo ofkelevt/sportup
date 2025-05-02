@@ -26,7 +26,7 @@ namespace sportup.Models
         public string? CityName { get; set; }
 
         [Column("picture_url")]
-        public string? PictureUrl { get; set; }
+        public Byte[]? PictureUrl { get; set; }
 
         [Required]
         [MaxLength(50)]
