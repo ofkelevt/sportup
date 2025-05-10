@@ -103,8 +103,6 @@ VALUES
 ('jane_smith', 'securePass!', null, 'Jane', 'Smith', '0987654321', '10', 'Elm St', 'Boston', 1, 'Frequent event organizer.'),
 ('mark_jones', 'pass1234', NULL, 'Mark', 'Jones', NULL, '50', 'Lake Ave', 'San Francisco', 1, 'Casual user interested in fitness.');
 
-
-
 -- Insert values into the 'event' table
 INSERT INTO event (home_num, street_name, city_name, picture_url, sport, created_at, description, ends_at, event_name, crator_id)
 VALUES

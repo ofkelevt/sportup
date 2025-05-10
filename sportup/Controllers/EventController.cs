@@ -28,13 +28,13 @@ namespace sportup.Controllers
         }
         // GET: api/Events
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EventDtos>>> GetEvents()
+        public async Task<ActionResult<IEnumerable<EventDto>>> GetEvents()
         {
-            return await _context.Events.Select(u => new EventDtos(u)).ToListAsync();
+            return await _context.Events.Select(u => new EventDto(u)).ToListAsync();
         }
         // GET: api/Events/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<EventDtos>> GetEvent(int id)
+        public async Task<ActionResult<EventDto>> GetEvent(int id)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace sportup.Controllers
                     return NotFound();
                 }
 
-                return new EventDtos(eventItem);
+                return new EventDto(eventItem);
             }
             catch (Exception ex)
             {
@@ -56,7 +56,7 @@ namespace sportup.Controllers
 
         // PUT: api/Events/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEvent(int id, EventDtor eventItem)
+        public async Task<IActionResult> PutEvent(int id, EventDto eventItem)
         {
             if (id != eventItem.EventId)
             {
@@ -86,7 +86,7 @@ namespace sportup.Controllers
 
         // POST: api/Events
         [HttpPost]
-        public async Task<ActionResult<Event>> PostEvent(EventDtor eventItem)
+        public async Task<ActionResult<Event>> PostEvent(EventDto eventItem)
         {
             _context.Events.Add(eventItem.ToModel());
             await _context.SaveChangesAsync();
